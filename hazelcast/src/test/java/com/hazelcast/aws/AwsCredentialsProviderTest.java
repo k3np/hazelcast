@@ -62,6 +62,25 @@ public class AwsCredentialsProviderTest {
     }
 
     @Test
+    public void sessionTokenCredentials() {
+        // given
+        AwsConfig awsConfig = AwsConfig.builder()
+                .setAccessKey(ACCESS_KEY)
+                .setSecretKey(SECRET_KEY)
+                .setSessionToken(TOKEN)
+                .build();
+        AwsCredentialsProvider credentialsProvider = new AwsCredentialsProvider(awsConfig, awsMetadataApi, environment);
+
+        // when
+        AwsCredentials credentials = credentialsProvider.credentials();
+
+        // then
+        assertEquals(ACCESS_KEY, credentials.getAccessKey());
+        assertEquals(SECRET_KEY, credentials.getSecretKey());
+        assertEquals(TOKEN, credentials.getToken());
+    }
+
+    @Test
     public void credentialsEc2IamRole() {
         // given
         String iamRole = "sample-iam-role";

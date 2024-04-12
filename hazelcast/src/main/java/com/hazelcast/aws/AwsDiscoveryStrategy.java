@@ -51,6 +51,7 @@ import static com.hazelcast.aws.AwsProperties.REGION;
 import static com.hazelcast.aws.AwsProperties.SECRET_KEY;
 import static com.hazelcast.aws.AwsProperties.SECURITY_GROUP_NAME;
 import static com.hazelcast.aws.AwsProperties.SERVICE_NAME;
+import static com.hazelcast.aws.AwsProperties.SESSION_TOKEN;
 import static com.hazelcast.aws.AwsProperties.TAG_KEY;
 import static com.hazelcast.aws.AwsProperties.TAG_VALUE;
 
@@ -105,6 +106,7 @@ public class AwsDiscoveryStrategy
         try {
             return AwsConfig.builder()
                     .setAccessKey(getOrNull(ACCESS_KEY)).setSecretKey(getOrNull(SECRET_KEY))
+                    .setSessionToken(getOrNull(SESSION_TOKEN))
                     .setRegion(getOrDefault(REGION.getDefinition(), null))
                     .setIamRole(getOrNull(IAM_ROLE))
                     .setHostHeader(getOrNull(HOST_HEADER.getDefinition()))
