@@ -40,6 +40,11 @@ enum AwsProperties {
     SECRET_KEY("secret-key", STRING, true),
 
     /**
+     * The STS Token
+     */
+    SESSION_TOKEN("session-token", STRING, true),
+
+    /**
      * The region where your members are running.
      * <p>
      * If not defined, the current instance region is used.

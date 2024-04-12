@@ -78,6 +78,7 @@ class AwsCredentialsProvider {
             return AwsCredentials.builder()
                 .setAccessKey(awsConfig.getAccessKey())
                 .setSecretKey(awsConfig.getSecretKey())
+                .setToken(awsConfig.getSessionToken())
                 .build();
         }
         if (!StringUtil.isNullOrEmptyAfterTrim(ec2IamRole)) {

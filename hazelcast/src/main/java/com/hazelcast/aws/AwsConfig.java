@@ -45,6 +45,7 @@ final class AwsConfig {
     private final PortRange hzPort;
     private final String accessKey;
     private final String secretKey;
+    private final String sessionToken;
     private final String iamRole;
     private final String cluster;
     private final String family;
@@ -53,12 +54,13 @@ final class AwsConfig {
 
     @SuppressWarnings("checkstyle:parameternumber")
     // Constructor has a lot of parameters, but it's private.
-    private AwsConfig(String accessKey, String secretKey, String region, String iamRole, String hostHeader,
+    private AwsConfig(String accessKey, String secretKey, String sessionToken, String region, String iamRole, String hostHeader,
                       String securityGroupName, String tagKey, String tagValue, int connectionTimeoutSeconds,
                       int connectionRetries, int readTimeoutSeconds, PortRange hzPort, String cluster, String family,
                       String serviceName, DiscoveryMode discoveryMode) {
         this.accessKey = accessKey;
         this.secretKey = secretKey;
+        this.sessionToken = sessionToken;
         this.region = region;
         this.iamRole = iamRole;
         this.hostHeader = hostHeader;
@@ -151,6 +153,10 @@ final class AwsConfig {
         return secretKey;
     }
 
+    String getSessionToken() {
+        return sessionToken;
+    }
+
     String getRegion() {
         return region;
     }
@@ -228,6 +234,7 @@ final class AwsConfig {
 
         private String accessKey;
         private String secretKey;
+        private String sessionToken;
         private String region;
         private String iamRole;
         private String hostHeader;
@@ -250,6 +257,11 @@ final class AwsConfig {
 
         Builder setSecretKey(String secretKey) {
             this.secretKey = secretKey;
+            return this;
+        }
+
+        Builder setSessionToken(String token) {
+            this.sessionToken = token;
             return this;
         }
 
@@ -324,9 +336,9 @@ final class AwsConfig {
         }
 
         AwsConfig build() {
-            return new AwsConfig(accessKey, secretKey, region, iamRole, hostHeader, securityGroupName, tagKey, tagValue,
-                    connectionTimeoutSeconds, connectionRetries, readTimeoutSeconds, hzPort, cluster, family, serviceName,
-                    discoveryMode);
+            return new AwsConfig(accessKey, secretKey, sessionToken, region, iamRole, hostHeader, securityGroupName,
+                    tagKey, tagValue, connectionTimeoutSeconds, connectionRetries, readTimeoutSeconds, hzPort, cluster,
+                    family, serviceName, discoveryMode);
         }
     }
 }
